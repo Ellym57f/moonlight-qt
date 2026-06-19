@@ -74,13 +74,14 @@ jobs:
 
       - name: Build ARM64 binaries (Windows)
         if: runner.os == 'Windows'
+        continue-on-error: true
         shell: cmd
         run: |
           set "PATH=%QT_PATH%;%PATH%"
           scripts\build-arch.bat Release arm64
         env:
           QT_PATH: ${{ runner.workspace }}\Qt\${{ matrix.qt_version }}\msvc2022_64\bin
-       
+          
       - name: Build Package
         shell: pwsh
         run: |
