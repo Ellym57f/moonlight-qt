@@ -36,17 +36,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 win32 {
-    contains(QT_ARCH, i386) {
-        LIBS += -L$$PWD/../libs/windows/lib/x86
-        INCLUDEPATH += $$PWD/../libs/windows/include/x86
+    !exists($$PWD/../libs/windows) {
+        error("Missing dependencies. Please run 'powershell .\setup-deps.ps1' to fetch prebuilt libraries.")
     }
+
     contains(QT_ARCH, x86_64) {
         LIBS += -L$$PWD/../libs/windows/lib/x64
-        INCLUDEPATH += $$PWD/../libs/windows/include/x64
+        INCLUDEPATH += $$PWD/../libs/windows/include/x64 $$PWD/../libs/windows/include/x64/SDL2
     }
     contains(QT_ARCH, arm64) {
         LIBS += -L$$PWD/../libs/windows/lib/arm64
-        INCLUDEPATH += $$PWD/../libs/windows/include/arm64
+        INCLUDEPATH += $$PWD/../libs/windows/include/arm64 $$PWD/../libs/windows/include/arm64/SDL2
     }
 
     INCLUDEPATH += $$PWD/../libs/windows/include
